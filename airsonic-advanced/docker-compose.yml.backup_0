@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  airsonic:
+    container_name: airsonic
+    image: airsonicadvanced/airsonic-advanced:latest
+    networks:
+      - corevega-net
+    dns: 192.168.1.1
+    restart: unless-stopped
+    ports:
+      - 8000:4040
+      - 8001:4041 # UPnP
+    environment:
+      TZ: America/Denver
+    volumes:
+      - /home/zachvp/airsonic:/var/airsonic:rw
+      - /media/zachvp/SOL/music/media-server:/var/music:ro
+ 
+networks:
+  corevega-net:
+    external: true

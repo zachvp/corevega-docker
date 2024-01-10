@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  airsonic-linserv:
+    container_name: airsonic-linserv
+    image: lscr.io/linuxserver/airsonic-advanced:latest
+    networks:
+      - corevega-net
+    dns: 192.168.1.1
+    restart: unless-stopped
+    ports:
+      - 8000:4040
+      - 8001:4041 # UPnP
+    environment:
+      TZ: America/Denver
+      PUID: 1000
+      PGID: 1000
+    volumes:
+      - /srv/docker/airsonic:/config:rw
+      - /media/zachvp/SOL/media/music:/music:ro
+
+  airsonic-advanced:
+    container_name: airsonic-advanced
+    image: airsonicadvanced/airsonic-advanced:latest
+    networks:
+      - corevega-net
+    dns: 192.168.1.1
+    restart: unless-stopped
+    ports:
+      - 8000:4040
+      - 8001:4041 # UPnP
+    environment:
+      TZ: America/Denver
+    user: 1000:1000 # host machine sees this as `100999:100999`, which seems to be a subuid
+    volumes:
+      # With a non-root user configured, airsonic needs read/write permissions for the host volume mapped to /var/airsonic.
+      # In this case, the source directory has been created in advance, then `sudo chown 100999:100999 /srv/docker/airsonic`
+      - /srv/docker/airsonic:/var/airsonic:rw
+
+      # airsonic needs read permissions not only for the host volume mapped to /var/music, but also all the music files
+      # In this case, use `chmod -R o+r '/media/zachvp/SOL/media-server'
+      - /media/zachvp/SOL/media/music:/var/music:ro
+
+networks:
+  corevega-net:
+    external: true

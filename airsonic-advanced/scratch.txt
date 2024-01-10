@@ -1,0 +1,132 @@
+[
+    {
+        "Id": "sha256:29e8801b2a1b2953a8791e4f73cd31fdcf9a2f28c2f566194675c4ea61ab3f57",
+        "RepoTags": [
+            "airsonicadvanced/airsonic-advanced:latest"
+        ],
+        "RepoDigests": [
+            "airsonicadvanced/airsonic-advanced@sha256:18de305bce05d47a885a40e6fbeecbf26ebc1ea815cedcce4be1f533a39bd3e8"
+        ],
+        "Parent": "",
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2022-06-25T05:47:13.798395191Z",
+        "Container": "",
+        "ContainerConfig": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": null,
+            "Cmd": null,
+            "Image": "",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": null
+        },
+        "DockerVersion": "",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "0:0",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "1900/udp": {},
+                "4040/tcp": {},
+                "4041/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=en_US.UTF-8",
+                "LANGUAGE=en_US:en",
+                "LC_ALL=en_US.UTF-8",
+                "JAVA_VERSION=jdk-14.0.2+12",
+                "JAVA_HOME=/opt/java/openjdk",
+                "AIRSONIC_PORT=4040",
+                "AIRSONIC_DIR=/var",
+                "CONTEXT_PATH=/",
+                "UPNP_PORT=4041",
+                "PUID=0",
+                "PGID=0"
+            ],
+            "Cmd": null,
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "curl -f http://localhost:\"$AIRSONIC_PORT\"\"$CONTEXT_PATH\"rest/ping || false"
+                ],
+                "Interval": 15000000000,
+                "Timeout": 3000000000
+            },
+            "Image": "",
+            "Volumes": {
+                "/var/airsonic": {},
+                "/var/music": {},
+                "/var/playlists": {},
+                "/var/podcasts": {}
+            },
+            "WorkingDir": "/var",
+            "Entrypoint": [
+                "entry.sh"
+            ],
+            "OnBuild": null,
+            "Labels": {
+                "description": "Airsonic-Advanced is a free, web-based media streamer, providing ubiquitous access to your music.",
+                "url": "https://github.com/airsonic-advanced/airsonic-advanced"
+            }
+        },
+        "Architecture": "arm64",
+        "Os": "linux",
+        "Size": 884938321,
+        "VirtualSize": 884938321,
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/home/zachvp/.local/share/docker/overlay2/5e01f14bc9da073706a44ee8db9a856b98b1e8e1140ac33f489eb071d8d1cb32/diff:/home/zachvp/.local/share/docker/overlay2/4763657ad6b46673bbc61b9bf7c2cda4288cab6babf60ac2fb137415320fffe7/diff:/home/zachvp/.local/share/docker/overlay2/ac875912b92034a2706e9f2a9e28f21a23ba2e4ce0f3f53ffbba62c1b1b12a96/diff:/home/zachvp/.local/share/docker/overlay2/302c7ee1f64721a7bf7f25342433cb822329f04db22ad2b2e7c103a9b852a773/diff:/home/zachvp/.local/share/docker/overlay2/d34b0a8f5249460b84fb25fd4de89b72144bdd2a75bc6095914edfa630d47fab/diff:/home/zachvp/.local/share/docker/overlay2/92f4ff33532088d9de5421b1fe018371e0693ba9bbc2d8ca5283dff25c71f11e/diff:/home/zachvp/.local/share/docker/overlay2/924409e3638b311019988ee8e6028b774004e2f86b3d53e5897d2caa4fe62b6c/diff:/home/zachvp/.local/share/docker/overlay2/c9879d9344fbef07049b67040d91e389caeb3e648760755f7d2166ec5026f088/diff:/home/zachvp/.local/share/docker/overlay2/17a2762e3c14f37e5bbe559fb0993ecdf944f7c176a6fef5c57d8d90873aca15/diff:/home/zachvp/.local/share/docker/overlay2/336e0fe0442ed3789e95fef1e1bc10100ca1a11b0630f11c12ae71bf14416f80/diff:/home/zachvp/.local/share/docker/overlay2/b9d83ebb777b6d90d0f15c534e24e981a10aa37cf3a0e4d5aa99bede1012f33f/diff:/home/zachvp/.local/share/docker/overlay2/89f3fffebccabfc93a44cb176f8eea1804dcb8b0884235b0e91f50aff31a953a/diff:/home/zachvp/.local/share/docker/overlay2/9a93e47da6f871ff2391c8e8a8a0e06ec0d5d9adac8f6f258be1612e82bf2128/diff:/home/zachvp/.local/share/docker/overlay2/46bc35c5fb960d9c661c0728d1937fb8b1971fa228ca8d7230b6d4d26d8f5ad0/diff:/home/zachvp/.local/share/docker/overlay2/e8e02ad5712f51a40540fbbe8b29e681ff4e62e5096bb64c5b66784e11dafd52/diff:/home/zachvp/.local/share/docker/overlay2/45d3cad3e0ebd04114b7bddbc351331f481bd9bc1a03ab5bb8743544ce31fb0f/diff:/home/zachvp/.local/share/docker/overlay2/362a9ef2ea6ef11ff5093bbc36c16f3e09879ee020aeaa9c081886ff878410d3/diff:/home/zachvp/.local/share/docker/overlay2/dec1e83eab83f0c89cc12e07aa89c3a6820ac7522527efcaf9392738756c98b9/diff:/home/zachvp/.local/share/docker/overlay2/8ddc6b688b4db3a71e7cafc4f50dbc20acbc90f7dffe657643e2ef7d9f0fe068/diff",
+                "MergedDir": "/home/zachvp/.local/share/docker/overlay2/a22bd256dabc2779fa64f6a47593f7fe8e2f8ab3902cc19d7418a20e7ccc2e4e/merged",
+                "UpperDir": "/home/zachvp/.local/share/docker/overlay2/a22bd256dabc2779fa64f6a47593f7fe8e2f8ab3902cc19d7418a20e7ccc2e4e/diff",
+                "WorkDir": "/home/zachvp/.local/share/docker/overlay2/a22bd256dabc2779fa64f6a47593f7fe8e2f8ab3902cc19d7418a20e7ccc2e4e/work"
+            },
+            "Name": "overlay2"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:e63448bd97ee5598c577d1d2512df4d8cde339c272b08545aa58b5385d941483",
+                "sha256:9aee357d0e2f191a83db44d94a160465edf48f42b1642859551380cd857de88a",
+                "sha256:ec07f8f209e956ef79dd40ae488b03e9fcca198e05a89295b78f381b958e39b2",
+                "sha256:18009a0b470f187ff0ff7fff098a6bc243596586ef8e89be3d5a24f96cc89823",
+                "sha256:c0706e2c8d5c0e04f88da56b6d1fd9a96dc1a26043f752d6799e7face490a436",
+                "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                "sha256:f98341f7cc1b28a16baac898b3722fe06109ac29dd59801cb8e30c29ad631c05",
+                "sha256:304cfeb90f225776eb685f586bed5185507d1e144a54d63646559116955739aa",
+                "sha256:60dc93e83d815d35c50f46d80254d6056d718045e38f6733b64789712b754eee",
+                "sha256:586ca2b9ac6929cccf3021daf4d8943b1d1ec924c6586acd1fca78d1ed478f82",
+                "sha256:f3017f76deb814f5191f9e3e27ab27983dd837906c59f123be2d5f0a2455f532",
+                "sha256:f077d771e389de5d57f55f8d0b7ce5c646b359a8395673a68bdb52220372ecae",
+                "sha256:4d2fdb79dd28a53393f73c26d33c042b270278f279e8ffb050bd4eb376cc27ca",
+                "sha256:fafca367e526426f0393f68f373b9bd7841ee0780a1b88bc374e3b714db7d6ea",
+                "sha256:b3eb74b5ab1a8b45e0a9cdf05c5a3021f111cea4278084bda38124cb4ccae6c2",
+                "sha256:837fc114c11bcddb44053318a76e6d15941fa72fb5dd6da1a645b79e8ee9d903",
+                "sha256:7e74d7ae9d3e9fe66034125e434716e6596e63cf3d3f817f3f7517997be31707",
+                "sha256:487072b2c85120c843793eeb629d0b8118c07a57872c6da8adab28d1063d9a65",
+                "sha256:a6047a64cf7393c7a91c09e289ec7e6aa172c337589cda29f7c3790919d61ba3",
+                "sha256:e2507cace5b59fafc690d4f0b3e28fd26ea7147c63ea16db5283acbafad29bc6"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "0001-01-01T00:00:00Z"
+        }
+    }
+]
