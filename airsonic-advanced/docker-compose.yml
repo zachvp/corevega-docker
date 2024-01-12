@@ -9,10 +9,10 @@ services:
       - /media/zachvp:/custom/state:ro
       - /home/zachvp/developer/docker/dependency-mount/dependency-mount.sh:/custom/scripts/dependency-mount.sh:ro
     healthcheck:
-      test: ["CMD", "/bin/sh", "/custom/scripts/dependency-mount.sh", "healthcheck"]
+      test: ["CMD", "/bin/sh", "/custom/scripts/dependency-mount.sh", "healthcheck", "/custom/state/SOL"]
       interval: 5s
       timeout: 1m
-    command: ["/bin/sh", "/custom/scripts/dependency-mount.sh", "main", "/custom/state/SOL"]
+    command: ["/bin/sh", "/custom/scripts/dependency-mount.sh", "main"]
 
   airsonic-linserv:
     container_name: airsonic-linserv
