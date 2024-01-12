@@ -2,6 +2,8 @@ services:
   dependency-mount:
     container_name: dependency-mount
     image: alpine:latest
+    networks:
+      - corevega-net
     restart: no
     volumes:
       - /media/zachvp:/custom/state:ro
@@ -10,15 +12,15 @@ services:
       test: ["CMD", "/bin/sh", "/custom/scripts/dependency-mount.sh", "healthcheck"]
       interval: 5s
       timeout: 1m
-    command: ["/bin/sh", "/custom/scripts/dependency-mount.sh", "main"]
+    command: ["/bin/sh", "/custom/scripts/dependency-mount.sh", "main", "/custom/state/SOL"]
 
   airsonic-linserv:
     container_name: airsonic-linserv
     image: lscr.io/linuxserver/airsonic-advanced:latest
 # TODO
-#    depends_on:
-#      dependency-mount:
-#        condition: service_healthy
+    depends_on:
+      dependency-mount:
+        condition: service_healthy
 
     networks:
       - corevega-net

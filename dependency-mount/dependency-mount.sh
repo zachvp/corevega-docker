@@ -1,14 +1,12 @@
 #/bin/sh
 
-MOUNT=/custom/state/SOL
-#MOUNT=/media/zachvp/SOL
-
 on_terminate(){
 	echo "script terminated"
 	exit
 }
 
 healthcheck(){
+	MOUNT=$2
 	while ! test -d $MOUNT
 	do
 		echo "mount directory '$MOUNT' does not exist"
@@ -31,5 +29,5 @@ main(){
 }
 
 # call provided function
-echo "calling $1"
-$1
+echo "calling $1 $@"
+$1 $@
