@@ -1,13 +1,29 @@
-version: "3"
-
 services:
+  dependency-mount:
+    container_name: dependency-mount
+    image: alpine:latest
+    restart: no
+    volumes:
+      - /media/zachvp:/custom/state:ro
+      - /home/zachvp/developer/docker/dependency-mount/dependency-mount.sh:/custom/scripts/dependency-mount.sh:ro
+    healthcheck:
+      test: ["CMD", "/bin/sh", "/custom/scripts/dependency-mount.sh", "healthcheck"]
+      interval: 5s
+      timeout: 1m
+    command: ["/bin/sh", "/custom/scripts/dependency-mount.sh", "main"]
+
   airsonic-linserv:
     container_name: airsonic-linserv
     image: lscr.io/linuxserver/airsonic-advanced:latest
+# TODO
+#    depends_on:
+#      dependency-mount:
+#        condition: service_healthy
+
     networks:
       - corevega-net
     dns: 192.168.1.1
-    restart: unless-stopped
+    restart: no
     ports:
       - 8000:4040
       - 8001:4041 # UPnP
@@ -18,6 +34,9 @@ services:
     volumes:
       - /srv/docker/airsonic:/config:rw
       - /media/zachvp/SOL/media/music:/music:ro
+# Testing
+#      - /home/zachvp/developer/state/linuxserv-airsonic:/config:rw
+#      - /media/zachvp/SOL/test/isolated:/music:ro
 
   airsonic-advanced:
     container_name: airsonic-advanced
@@ -25,7 +44,7 @@ services:
     networks:
       - corevega-net
     dns: 192.168.1.1
-    restart: unless-stopped
+    restart: no
     ports:
       - 8000:4040
       - 8001:4041 # UPnP
