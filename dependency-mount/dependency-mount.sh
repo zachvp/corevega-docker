@@ -6,20 +6,21 @@ on_terminate(){
 }
 
 healthcheck(){
-	MOUNT=$2
-	while ! test -d $MOUNT
+	MOUNT="$2"
+	echo "check mount directory: $MOUNT"
+	while ! test -d "$MOUNT"
 	do
 		echo "mount directory '$MOUNT' does not exist"
-		sleep 3s
+		sleep 2s
 	done	
 	echo "healthcheck complete"
 }
 
 main(){
-	# TODO: narrow these down, ideally to a single one
-	trap 'on_terminate' TERM ABRT KILL QUIT HUP INT
+	# listen to signals so the script can exit as soon as possible
+	trap on_terminate INT TERM
 
-	echo "hello, time to spin as slow as the earth..."
+	echo "hello, time to spin..."
 
 	while true
 	do
@@ -29,5 +30,5 @@ main(){
 }
 
 # call provided function
-echo "calling $1 $@"
+echo "calling $@"
 $1 $@
