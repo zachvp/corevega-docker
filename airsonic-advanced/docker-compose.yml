@@ -2,7 +2,7 @@ services:
   dependency-mount:
     image: alpine:latest
     container_name: dependency-mount
-    restart: no
+    restart: "no"
     dns: 192.168.1.1
     networks:
       - corevega-net
@@ -28,7 +28,7 @@ services:
     depends_on:
       dependency-mount:
         condition: service_healthy
-        restart: no
+        restart: "no"
     dns: 192.168.1.1
     networks:
       - corevega-net

@@ -1,0 +1,10 @@
+[Unit]
+Description=Run airsonic service via docker
+After=docker.service
+Requires=docker.service
+
+[Service]
+User=zachvp
+ExecStart=/usr/bin/docker compose -f /home/zachvp/developer/docker/airsonic-advanced/docker-compose.yml start airsonic-linserv
+
+# ExecStart=/bin/sh /home/zachvp/developer/docker/dependency-mount/dependency-mount.sh on_mount
