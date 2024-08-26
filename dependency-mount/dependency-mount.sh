@@ -16,6 +16,11 @@ healthcheck(){
 	echo "healthcheck complete"
 }
 
+on_mount(){
+	SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+	echo "mounted from $PWD" > "$SCRIPT_DIR/test.txt"
+}
+
 main(){
 	# listen to signals so the script can exit as soon as possible
 	trap on_terminate INT TERM
