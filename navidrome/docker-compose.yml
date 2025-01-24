@@ -1,0 +1,58 @@
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    user: 1000:1000 # should be owner of volumes
+#    ports:
+#      - "4533:4533"
+    restart: unless-stopped
+    environment:
+#      ND_ADDRESS: localhost
+#      ND_REVERSEPROXYWHITELIST: 0.0.0.0/0
+      ND_SCANSCHEDULE: 1h
+      ND_LOGLEVEL: debug  
+      ND_SESSIONTIMEOUT: 24h
+      ND_ENABLESHARING: true
+      ND_ENABLETRANSCODINGCONFIG: false # only enable for active modification due to security concerns
+
+      # NGINX proxy
+      VIRTUAL_HOST: corevega.local
+      LETSENCRYPT_HOST: corevega.local
+      VIRTUAL_PORT: 4533
+    volumes:
+      - /srv/docker/navidrome:/data
+      - /media/zachvp/SOL/music:/music:ro
+#      - "/home/zachvp/developer/state/navidrome:/data"
+#      - "/media/zachvp/SOL/testing:/music:ro"
+    dns: 192.168.1.1
+    networks:
+      - corevega-net
+    depends_on:
+      dependency-mount:
+        condition: service_healthy
+        restart: true
+
+  dependency-mount:
+    image: alpine:latest
+    container_name: dependency-mount
+    restart: unless-stopped
+    dns: 192.168.1.1
+    networks:
+      - corevega-net
+    volumes:
+      - type: bind
+        source: /media/zachvp
+        target: /custom/state
+        read_only: true
+        bind:
+          create_host_path: false
+      - /home/zachvp/developer/docker/dependency-mount/dependency-mount.sh:/custom/scripts/dependency-mount.sh:ro
+    healthcheck:
+      test: ["CMD", "/bin/sh", "/custom/scripts/dependency-mount.sh", "healthcheck", "/custom/state/SOL"]
+      interval: 2s
+      timeout: 1m
+    command: ["/bin/sh", "/custom/scripts/dependency-mount.sh", "main"]
+
+networks:
+  corevega-net:
+    external: true

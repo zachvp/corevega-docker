@@ -1,41 +1,46 @@
- version: "3.7"
-
 services:
   reverse-proxy:
     #image: "jwilder/nginx-proxy:latest"
-    image: "nginxproxy/nginx-proxy:1.4"
-     
+    image: "nginxproxy/nginx-proxy:1.7.0"
     container_name: "reverse-proxy"
+#    user: 1000:1000
     volumes:
       - "html:/usr/share/nginx/html"
       - "dhparam:/etc/nginx/dhparam"
       - "vhost:/etc/nginx/vhost.d"
       - "certs:/etc/nginx/certs"
-      - "/run/docker.sock:/tmp/docker.sock:ro"
+      - "/run/user/1000/docker.sock:/tmp/docker.sock:ro"
+ #     - "/run/docker.sock:/tmp/docker.sock:ro"
+    environment:
+      TRUST_DOWNSTREAM_PROXY: false
     restart: "always"
+    dns: 192.168.1.1
     networks:
       - "corevega-net"
     ports:
       - "80:80"
       - "443:443"
 
-letsencrypt:
-  image: "nginxproxy/acme-companion:2.2"
-  container_name: "letsencrypt-proxy-helper"
-  volumes:
-    - "html:/usr/share/nginx/html"
-    - "dhparam:/etc/nginx/dhparam"
-    - "vhost:/etc/nginx/vhost.d"
-    - "certs:/etc/nginx/certs"
-    - "/run/docker.sock:/varl/run/docker.sock:ro"
-  environment:
-    NGINX_PROXY_CONTAINER: "reverse-proxy"
-    DEFAULT_EMAIL: "vegaperk@gmail.com"
-  restart: "always"
-  depends_on:
-    - "reverse_proxy"
-  networks:
-    - "corevega-net" 
+  acme-companion:
+    image: "nginxproxy/acme-companion:2.5.2"
+    container_name: "acme-companion"
+#    user: 1000:1000
+    volumes:
+      - "html:/usr/share/nginx/html"
+      - "dhparam:/etc/nginx/dhparam"
+      - "vhost:/etc/nginx/vhost.d"
+      - "certs:/etc/nginx/certs"
+      - "/run/user/1000/docker.sock:/var/run/docker.sock:ro"
+      - "/home/zachvp/.acme.sh:/etc/acme.sh"
+    environment:
+      NGINX_PROXY_CONTAINER: "reverse-proxy"
+      DEFAULT_EMAIL: "vegaperk@gmail.com"
+#    restart: "always"
+    depends_on:
+      - "reverse-proxy"
+    dns: 192.168.1.1
+    networks:
+      - "corevega-net" 
 
 volumes:
   certs:

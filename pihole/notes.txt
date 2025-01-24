@@ -1,0 +1,4 @@
+commands run; possibly undo later; listed in order of exeuction (least to most recent)
+	sudo sysctl net.ipv4.ip_unprivileged_port_start=53
+	sudo iptables -I INPUT -p tcp --dport 54:1024 -j DROP
+	sudo iptables -I INPUT -p udp --dport 54:1024 -j DROP
