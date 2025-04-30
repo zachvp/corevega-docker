@@ -1,2 +1,0 @@
-# SUBSYSTEMS=="usb", ACTION=="add", KERNEL=="sd*", RUN+="/bin/sh /home/zachvp/developer/docker/dependency-mount/dependency-mount.sh on_mount"
-SUBSYSTEMS=="usb", ACTION=="add", KERNEL=="sd*", ENV{SYSTEMD_WANTS}="airsonic-start.service"

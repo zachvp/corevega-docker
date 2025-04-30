@@ -7,8 +7,9 @@ services:
 #      - "4533:4533"
     restart: unless-stopped
     environment:
-#      ND_ADDRESS: localhost
-#      ND_REVERSEPROXYWHITELIST: 0.0.0.0/0
+      # docker
+      TZ: America/Denver
+      # navidrome
       ND_SCANSCHEDULE: 1h
       ND_LOGLEVEL: debug  
       ND_SESSIONTIMEOUT: 24h
@@ -16,15 +17,15 @@ services:
       ND_ENABLETRANSCODINGCONFIG: false # only enable for active modification due to security concerns
 
       # NGINX proxy
-      VIRTUAL_HOST: corevega.local
-      LETSENCRYPT_HOST: corevega.local
+      VIRTUAL_HOST: corevega.net
+      LETSENCRYPT_HOST: corevega.net
       VIRTUAL_PORT: 4533
     volumes:
       - /srv/docker/navidrome:/data
       - /media/zachvp/SOL/music:/music:ro
 #      - "/home/zachvp/developer/state/navidrome:/data"
 #      - "/media/zachvp/SOL/testing:/music:ro"
-    dns: 192.168.1.1
+    dns: 192.168.50.1
     networks:
       - corevega-net
     depends_on:
