@@ -23,7 +23,13 @@ services:
       VIRTUAL_PORT: 4533
     volumes:
       - /srv/docker/navidrome:/data
-      - /media/zachvp/SOL/music:/music:ro
+#      - /media/zachvp/SOL/music:/music:ro
+      - type: bind
+        source: /media/zachvp/SOL/music
+        target: /music
+        read_only: true
+        bind:
+          create_host_path: false
       # Dev testing
 #      - "/home/zachvp/developer/state/navidrome:/data"
 #      - "/media/zachvp/SOL/testing:/music:ro"
