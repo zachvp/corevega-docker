@@ -3,6 +3,7 @@ services:
     image: deluan/navidrome:latest
     container_name: navidrome
     user: 1000:1000 # should be owner of volumes
+    # Dev testing w/o proxy
 #    ports:
 #      - "4533:4533"
     restart: unless-stopped
@@ -23,6 +24,7 @@ services:
     volumes:
       - /srv/docker/navidrome:/data
       - /media/zachvp/SOL/music:/music:ro
+      # Dev testing
 #      - "/home/zachvp/developer/state/navidrome:/data"
 #      - "/media/zachvp/SOL/testing:/music:ro"
     dns: 192.168.50.1
