@@ -1,0 +1,10 @@
+[Unit]
+Description=Watch for Docker updates
+
+[Path]
+PathChanged=/usr/bin/docker
+PathChanged=/usr/bin/rootlesskit
+#PathChanged=/home/zachvp/developer/sandbox/service-path-test/file-service.foo
+
+[Install]
+WantedBy=multi-user.target
