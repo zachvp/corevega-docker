@@ -3,9 +3,11 @@ Description=Fix rootlesskit capabilities after Docker update
 
 [Service]
 Type=oneshot
-#ExecStart=/bin/bash -c 'setcap cap_net_bind_service=ep $(which rootlesskit) && systemctl --user restart docker'
 ExecStart=/bin/bash -c 'setcap cap_net_bind_service=ep $(which rootlesskit) && runuser -l zachvp -c "systemctl --user restart docker"'
-#ExecStart=/bin/bash -c 'touch /home/zachvp/developer/sandbox/service-path-test/file-service.bar'
+# Original command:
+# 	ExecStart=/bin/bash -c 'setcap cap_net_bind_service=ep $(which rootlesskit) && systemctl --user restart docker'
+# Test command: confirmed working
+# 	ExecStart=/bin/bash -c 'touch /home/zachvp/developer/sandbox/service-path-test/file-service.bar'
 User=root
 
 [Install]
