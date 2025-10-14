@@ -18,22 +18,18 @@ services:
       ND_ENABLETRANSCODINGCONFIG: false # only enable for active modification due to security concerns
 
       # NGINX proxy
-      VIRTUAL_HOST: corevega.net
-      LETSENCRYPT_HOST: corevega.net
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_HOST: ${VIRTUAL_HOST}
       VIRTUAL_PORT: 4533
     volumes:
-      - /srv/docker/navidrome:/data
-#      - /media/zachvp/SOL/music:/music:ro
+      - ${NAVIDROME_DATA}:/data
       - type: bind
-        source: /media/zachvp/SOL/music
+        source: ${MUSIC_SOURCE}
         target: /music
         read_only: true
         bind:
           create_host_path: false
-      # Dev testing
-#      - "/home/zachvp/developer/state/navidrome:/data"
-#      - "/media/zachvp/SOL/testing:/music:ro"
-    dns: 192.168.50.1
+    dns: ${DNS_SERVER}
     networks:
       - corevega-net
     depends_on:
@@ -45,17 +41,17 @@ services:
     image: alpine:latest
     container_name: dependency-mount
     restart: unless-stopped
-    dns: 192.168.1.1
+    dns: ${DNS_SERVER}
     networks:
       - corevega-net
     volumes:
       - type: bind
-        source: /media/zachvp
+        source: ${MEDIA_ROOT}
         target: /custom/state
         read_only: true
         bind:
           create_host_path: false
-      - /home/zachvp/developer/docker/dependency-mount/dependency-mount.sh:/custom/scripts/dependency-mount.sh:ro
+      - ${DEPENDENCY_MOUNT_SCRIPT}:/custom/scripts/dependency-mount.sh:ro
     healthcheck:
       test: ["CMD", "/bin/sh", "/custom/scripts/dependency-mount.sh", "healthcheck", "/custom/state/SOL"]
       interval: 2s
