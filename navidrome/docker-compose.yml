@@ -3,24 +3,16 @@ services:
     image: deluan/navidrome:latest
     container_name: navidrome
     user: 1000:1000 # should be owner of volumes
-    # Dev testing w/o proxy
-#    ports:
-#      - "4533:4533"
     restart: unless-stopped
     environment:
       # docker
       TZ: America/Denver
       # navidrome
       ND_SCANSCHEDULE: 1h
-      ND_LOGLEVEL: debug  
+      ND_LOGLEVEL: debug
       ND_SESSIONTIMEOUT: 24h
       ND_ENABLESHARING: true
       ND_ENABLETRANSCODINGCONFIG: false # only enable for active modification due to security concerns
-
-      # NGINX proxy
-      VIRTUAL_HOST: ${VIRTUAL_HOST}
-      LETSENCRYPT_HOST: ${VIRTUAL_HOST}
-      VIRTUAL_PORT: 4533
     volumes:
       - ${NAVIDROME_DATA}:/data
       - type: bind
@@ -53,7 +45,7 @@ services:
           create_host_path: false
       - ${DEPENDENCY_MOUNT_SCRIPT}:/custom/scripts/dependency-mount.sh:ro
     healthcheck:
-      test: ["CMD", "/bin/sh", "/custom/scripts/dependency-mount.sh", "healthcheck", "/custom/state/SOL"]
+      test: ["CMD", "/bin/sh", "/custom/scripts/dependency-mount.sh", "healthcheck", "/custom/state/${HEALTHCHECK_PATH}"]
       interval: 2s
       timeout: 1m
     command: ["/bin/sh", "/custom/scripts/dependency-mount.sh", "main"]

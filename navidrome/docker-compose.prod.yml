@@ -1,0 +1,7 @@
+services:
+  navidrome:
+    environment:
+      # NGINX proxy
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_HOST: ${VIRTUAL_HOST}
+      VIRTUAL_PORT: 4533

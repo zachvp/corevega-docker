@@ -1,5 +1,5 @@
 # Navidrome Environment Configuration
-# Copy this file to .env and adjust values for your environment
+# Production configuration for Raspberry Pi
 
 # Data directory for Navidrome config and database
 NAVIDROME_DATA=/srv/docker/navidrome
