@@ -2,3 +2,5 @@
 .env
 **/state/
 claude/
+.env.*
+!.env.example
