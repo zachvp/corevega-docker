@@ -6,8 +6,9 @@ services:
     restart: unless-stopped
     environment:
       # docker
-      TZ: America/Denver
+      TZ: America/New_York
       # navidrome
+      ND_MUSICFOLDER: /media/SOL/music
       ND_SCANSCHEDULE: 1h
       ND_LOGLEVEL: debug
       ND_SESSIONTIMEOUT: 24h
@@ -16,8 +17,8 @@ services:
     volumes:
       - ${NAVIDROME_DATA}:/data
       - type: bind
-        source: ${MUSIC_SOURCE}
-        target: /music
+        source: ${MEDIA_ROOT}
+        target: /media
         read_only: true
         bind:
           create_host_path: false
