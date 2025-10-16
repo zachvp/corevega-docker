@@ -11,7 +11,7 @@ services:
     environment:
       TRUST_DOWNSTREAM_PROXY: false
     restart: always
-    dns: 192.168.50.1
+    dns: ${DNS_SERVER}
     networks:
       - "corevega-net"
     ports:
@@ -34,7 +34,7 @@ services:
     restart: always
     depends_on:
       - "reverse-proxy"
-    dns: 192.168.50.1
+    dns: ${DNS_SERVER}
     networks:
       - "corevega-net" 
 
