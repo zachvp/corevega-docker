@@ -1,15 +1,17 @@
 services:
   wordpress:
-    image: wordpress:latest
-    container_name: wordpress
+    build:
+      context: .
+      dockerfile: Dockerfile.wordpress
+    container_name: solreason-wordpress
     volumes:
-      - ./html:/var/www/html
+      - ${HTML_PATH}:/var/www/html
     environment:
-      - WORDPRESS_DB_NAME=wordpress
-      - WORDPRESS_TABLE_PREFIX=wp_
-      - WORDPRESS_DB_HOST=db
-      - WORDPRESS_DB_USER=root
-      - WORDPRESS_DB_PASSWORD=password
+      - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
+      - WORDPRESS_TABLE_PREFIX=${WORDPRESS_TABLE_PREFIX}
+      - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
+      - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+      - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
     depends_on:
       - db
     restart: unless-stopped
@@ -18,25 +20,26 @@ services:
 
   db:
     image: mariadb:latest
-    container_name: db
+    container_name: solreason-db
     volumes:
       - db_data:/var/lib/mysql
+      - ${DB_PATH}:/docker-entrypoint-initdb.d/${DB_FILENAME}.sql:ro
     environment:
-        - MYSQL_ROOT_PASSWORD=password
-        - MYSQL_DATABASE=wordpress
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
     restart: unless-stopped
 
   phpmyadmin:
     depends_on:
       - db
     image: phpmyadmin/phpmyadmin:latest
-    container_name: phpmyadmin
+    container_name: solreason-phpmyadmin
     restart: unless-stopped
     ports:
       - 9021:80
     environment:
       PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
 volumes:
   db_data:
