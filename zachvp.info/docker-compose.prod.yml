@@ -1,0 +1,13 @@
+services:
+  nginx:
+    environment:
+      VIRTUAL_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_HOST: ${VIRTUAL_HOST}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      VIRTUAL_PORT: 80
+    networks:
+      - corevega-net
+
+networks:
+  corevega-net:
+    external: true

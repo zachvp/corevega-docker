@@ -1,0 +1,9 @@
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zachvp-nginx
+    volumes:
+      - ${HTML_PATH}:/usr/share/nginx/html:ro
+    restart: unless-stopped
